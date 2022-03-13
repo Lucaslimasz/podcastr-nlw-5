@@ -84,8 +84,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
   })
 
+  const paths = data.map((episode: any) => {
+    return {
+      params: {
+        slug: episode.id
+      }
+    }
+  })
+
   return {
-    paths: [],
+    paths,
     fallback: 'blocking'
   }
 }
