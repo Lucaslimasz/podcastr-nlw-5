@@ -8,7 +8,7 @@ import { convertDurationToTimeString } from "../../utils/convertDurationToTimeSt
 import styles from './episode.module.scss'
 
 import { useRouter } from 'next/router'
-
+import { usePlayer } from "../../contexts/PlayerContext";
 import Head from "next/head";
 
 type Episode = {
@@ -28,6 +28,7 @@ type EpisodeProps = {
 }
 
 export default function Episode({ episode }: EpisodeProps ) {
+  const { play } = usePlayer()
   const router = useRouter()
 
   if (router.isFallback) {
@@ -37,7 +38,7 @@ export default function Episode({ episode }: EpisodeProps ) {
   return (
     <div className={styles.episode}>
       <Head>
-        <title>{episode.title} | Podcastr</title>
+        <title>{episode.title} | AcampMusic</title>
       </Head>
 
       <div className={styles.thumbnailContainer}>
@@ -52,7 +53,7 @@ export default function Episode({ episode }: EpisodeProps ) {
           src={episode.thumbnail}
           objectFit="cover"
         />
-        <button>
+        <button onClick={() => play(episode)}>
           <img src="/play.svg" alt="Tocar episódio"/>
         </button>
       </div>
@@ -84,13 +85,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
   })
 
-  const paths = data.map((episode: any) => {
-    return {
-      params: {
-        slug: episode.id
-      }
+  const paths = data.map((episode: any) => ({
+    params: {
+      slug: episode.id
     }
-  })
+  }))
 
   return {
     paths,
