@@ -118,7 +118,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 }
 
 export const getStaticProps: GetServerSideProps = async () => {
-  const { data } = await api.get('/episodes', {
+  const { data } = await api.get('/622d64917caf5d6783677455', {
     params: {
       _limit: 12,
       _sort: 'published_at',
@@ -126,7 +126,9 @@ export const getStaticProps: GetServerSideProps = async () => {
     }
   })
 
-  const episodes = data.map((episode: any) => ({
+  console.log(data.episodes)
+
+  const episodes = data.episodes.map((episode: any) => ({
     id: episode.id,
     title: episode.title,
     thumbnail: episode.thumbnail,
