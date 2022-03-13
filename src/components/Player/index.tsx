@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString'
 
 export function Player() {
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const audioRef = useRef<any>(null)
   const [progress, setProgress] = useState(0)
 
   const { 
@@ -100,7 +100,7 @@ export function Player() {
                 trackStyle={{ backgroundColor: '#04d361' }}
                 railStyle={{ backgroundColor: '#9f75ff' }}
                 handleStyle={{ borderBlockColor: '#04d361', borderWidth: 4 }}
-                onChange={handleSeek}
+                onChange={(e) => handleSeek(Number(e))}
                 max={episode.duration}
                 value={progress}
               />
