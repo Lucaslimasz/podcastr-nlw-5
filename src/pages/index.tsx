@@ -126,8 +126,6 @@ export const getStaticProps: GetServerSideProps = async () => {
     }
   })
 
-  console.log(data.episodes)
-
   const episodes = data.episodes.map((episode: any) => ({
     id: episode.id,
     title: episode.title,
